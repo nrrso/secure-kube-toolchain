@@ -23,7 +23,7 @@ toolchain:
       $ref: "#/messages/template.gettingStarted" 
 services:
   aidminutes-repo:
-    service_id: githubprivate
+    service_id: githubpublic
     parameters:
       repo_name: 'aidminutes-containers-{{timestamp}}'
       repo_url: 'https://github.com/aidminutes/ibm-aidminutes-test'
