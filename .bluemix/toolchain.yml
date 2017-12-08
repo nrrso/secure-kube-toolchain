@@ -9,39 +9,39 @@ template:
   header: '![](toolchain.svg?localize)'
   icon: secure-lock-kubernetes.svg
   required:
-    - hello-world-build
-    - hello-world-repo
+    - aidminutes-build
+    - aidminutes-repo
   info:
     git url: >-
       [https://github.com/open-toolchain/secure-kube-toolchain](https://github.com/open-toolchain/secure-kube-toolchain)
     git branch: >-
       [master](https://github.com/open-toolchain/secure-kube-toolchain/tree/master)
 toolchain:
-  name: 'secure-kubernetes-toolchain-{{timestamp}}'
+  name: 'aidminutes-toolchain-{{timestamp}}'
   template:
     getting_started:
       $ref: "#/messages/template.gettingStarted" 
 services:
-  hello-world-repo:
-    service_id: hostedgit
+  aidminutes-repo:
+    service_id: githubprivate
     parameters:
-      repo_name: 'hello-containers-{{timestamp}}'
-      repo_url: 'https://github.com/open-toolchain/hello-containers'
-      type: clone
+      repo_name: 'aidminutes-containers-{{timestamp}}'
+      repo_url: 'https://github.com/aidminutes/ibm-aidminutes-test'
+      type: link
       has_issues: true
       enable_traceability: true
-  hello-world-build:
+  aidminutes-build:
     service_id: pipeline
     parameters:
       services:
-        - hello-world-repo
-      name: 'hello-world-{{timestamp}}'
+        - aidminutes-repo
+      name: 'aidminutes-{{timestamp}}'
       ui-pipeline: true
       configuration:
         content:
           $text: pipeline.yml
         env:
-          GIT_REPO: hello-world-repo
+          GIT_REPO: aidminutes-repo
           CF_APP_NAME: '{{form.pipeline.parameters.app-name}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           REGISTRY_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
@@ -54,6 +54,6 @@ services:
 form:
   pipeline:
     parameters:
-      app-name: '{{services.hello-world-repo.parameters.repo_name}}'
+      app-name: '{{services.aidminutes-repo.parameters.repo_name}}'
     schema:
       $ref: deploy.json
